@@ -7,14 +7,9 @@ redirect_from:
   - /about/
   - /about.html
 ---
+My name is Daniel Israel, and I am currently a Computer Science PhD student at UCLA. I am co-advised by [Guy Van den Broeck](https://web.cs.ucla.edu/~guyvdb/#) and [Aditya Grover](https://aditya-grover.github.io/). My research goal is to produce more robust, data efficient, interpretable, and intellegent systems. To this end, I aim to leverage causal world models for the purpose of representation learning and generative modeling.
 
-
-Hello World
-
-**Test**
-
-Test 2
-======
+Before my PhD, I am thankful to have worked with professors Anima Anandkumar, Frederick Eberhahdt, and Pietro Perona at Caltech. In my spare time, I enjoy playing soccer and reading books.
 
 <!-- This is the front page of a website that is powered by the [academicpages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the respository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. You can fork [this repository](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and markdown files, add your own PDFs and other content, and have your own site for free, with no ads! An older version of this template powers my own personal website at [stuartgeiger.com](http://stuartgeiger.com), which uses [this Github repository](https://github.com/staeiou/staeiou.github.io).
 
@@ -53,6 +48,6 @@ Many people use a git client to create files on their local computer and then pu
 Example: editing a markdown file for a talk
 ![Editing a markdown file for a talk](/images/editing-talk.png)
 
-For more info -->
+For more info 
 ------
-More info about configuring academicpages can be found in [the guide](https://academicpages.github.io/markdown/). The [guides for the Minimal Mistakes theme](https://mmistakes.github.io/minimal-mistakes/docs/configuration/) (which this theme was forked from) might also be helpful.
+More info about configuring academicpages can be found in [the guide](https://academicpages.github.io/markdown/). The [guides for the Minimal Mistakes theme](https://mmistakes.github.io/minimal-mistakes/docs/configuration/) (which this theme was forked from) might also be helpful.-->
