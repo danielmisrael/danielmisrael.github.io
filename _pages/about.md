@@ -8,15 +8,12 @@ redirect_from:
   - /about.html
 ---
 My name is Daniel Israel, and I am currently a Computer Science PhD student at UCLA. I am co-advised by [Guy Van den Broeck](https://web.cs.ucla.edu/~guyvdb/#) and [Aditya Grover](https://aditya-grover.github.io/). LLMs are continuously being optimized for performance at every layer of the stack: hardware,
-kernels, architecture, training, and inference algorithms. My research focus is primarily directed
-at more performant inference algorithms, in some instances enabled by modest architectural mod-
-ifications. LLM inference algorithms can be improved by
+kernels, architecture, training, and inference algorithms. My research focus is primarily directed at more performant inference algorithms, in some instances enabled by modest architectural modifications. LLM inference algorithms can be improved by
 1. Removing redundant computation and providing an exact solution that is strictly better
 2. Identifying a tradeoff and providing an approximate solution that expands the Pareto frontier
 of speed and quality
-In my work, I have employed both methods towards faster LLM inference algorithms.
 
-Before starting my PhD, I am thankful to have worked with professors [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/), [Frederick Eberhardt](http://www.its.caltech.edu/~fehardt/index.html), and [Pietro Perona](https://eas.caltech.edu/people/perona) at Caltech. In my spare time, I enjoy playing soccer and chess.
+In my work, I have employed both methods towards faster LLM inference algorithms. Before starting my PhD, I am thankful to have worked with professors [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/), [Frederick Eberhardt](http://www.its.caltech.edu/~fehardt/index.html), and [Pietro Perona](https://eas.caltech.edu/people/perona) at Caltech. In my spare time, I enjoy playing soccer and chess.
 
 <!-- This is the front page of a website that is powered by the [academicpages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the respository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. You can fork [this repository](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and markdown files, add your own PDFs and other content, and have your own site for free, with no ads! An older version of this template powers my own personal website at [stuartgeiger.com](http://stuartgeiger.com), which uses [this Github repository](https://github.com/staeiou/staeiou.github.io).
 
