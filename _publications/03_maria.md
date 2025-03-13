@@ -1,7 +1,7 @@
 ---
 title: "Enabling Autoregressive Models to Fill In Masked Tokens"
 collection: publications
-permalink: /publications/01_maria
+permalink: /publications/03_maria
 venue: "Preprint"
 authors: '<b>Daniel Israel</b>, Aditya Grover, Guy Van den Broeck'
 paper: "https://arxiv.org/abs/2502.06901"
