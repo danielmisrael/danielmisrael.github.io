@@ -7,7 +7,14 @@ redirect_from:
   - /about/
   - /about.html
 ---
-My name is Daniel Israel, and I am currently a Computer Science PhD student at UCLA. I am co-advised by [Guy Van den Broeck](https://web.cs.ucla.edu/~guyvdb/#) and [Aditya Grover](https://aditya-grover.github.io/). My research goal is to produce more robust, data efficient, interpretable, and intelligent systems. To this end, I aim to leverage causal world models for the purpose of representation learning and generative modeling.
+My name is Daniel Israel, and I am currently a Computer Science PhD student at UCLA. I am co-advised by [Guy Van den Broeck](https://web.cs.ucla.edu/~guyvdb/#) and [Aditya Grover](https://aditya-grover.github.io/). LLMs are continuously being optimized for performance at every layer of the stack: hardware,
+kernels, architecture, training, and inference algorithms. My research focus is primarily directed
+at more performant inference algorithms, in some instances enabled by modest architectural mod-
+ifications. LLM inference algorithms can be improved by
+1. Removing redundant computation and providing an exact solution that is strictly better
+2. Identifying a tradeoff and providing an approximate solution that expands the Pareto frontier
+of speed and quality
+In my work, I have employed both methods towards faster LLM inference algorithms.
 
 Before starting my PhD, I am thankful to have worked with professors [Anima Anandkumar](http://tensorlab.cms.caltech.edu/users/anima/), [Frederick Eberhardt](http://www.its.caltech.edu/~fehardt/index.html), and [Pietro Perona](https://eas.caltech.edu/people/perona) at Caltech. In my spare time, I enjoy playing soccer and chess.
 
