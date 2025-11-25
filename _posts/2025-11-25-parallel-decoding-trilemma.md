@@ -230,6 +230,21 @@ There are now benchmarks that analyze the tradeoff between speed and quality in 
 
 ---
 
+## Cite This Post
+
+```bibtex
+@misc{israel2025trilemma,
+  title        = {The Parallel Decoding Trilemma},
+  author       = {Israel, Daniel},
+  year         = {2025},
+  month        = {November},
+  howpublished = {Blog post},
+  url          = {https://danielmisrael.github.io/posts/2025/11/parallel-decoding-trilemma/}
+}
+```
+
+---
+
 ## References
 
 [^apd]: Daniel Israel, Guy Van den Broeck, and Aditya Grover. "Accelerating Diffusion LLMs via Adaptive Parallel Decoding." *Advances in Neural Information Processing Systems 38 (NeurIPS)*, 2025. [arXiv:2506.00413](https://arxiv.org/abs/2506.00413)
