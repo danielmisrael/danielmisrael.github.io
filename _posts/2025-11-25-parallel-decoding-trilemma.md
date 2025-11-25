@@ -232,16 +232,17 @@ There are now benchmarks that analyze the tradeoff between speed and quality in 
 
 ## Cite This Post
 
-```bibtex
-@misc{israel2025trilemma,
+<div style="position: relative;">
+<button onclick="navigator.clipboard.writeText(document.getElementById('bibtex').innerText); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy', 2000);" style="position: absolute; top: 8px; right: 8px; padding: 4px 12px; background: #4a4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Copy</button>
+<pre id="bibtex" style="background: #2d2d2d; color: #f8f8f2; padding: 20px; border-radius: 8px; font-size: 15px; line-height: 1.5; overflow-x: auto;">@misc{israel2025trilemma,
   title        = {The Parallel Decoding Trilemma},
   author       = {Israel, Daniel},
   year         = {2025},
   month        = {November},
   howpublished = {Blog post},
   url          = {https://danielmisrael.github.io/posts/2025/11/parallel-decoding-trilemma/}
-}
-```
+}</pre>
+</div>
 
 ---
 
