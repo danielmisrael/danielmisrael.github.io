@@ -27,21 +27,32 @@
       </div>
     {% endif %}
 
-    <!--Paper title-->
     <br>
-    <b>{{title}}</b>
-    <br>
-    <i>{{ post.authors }} </i>
-    <br>
-    {{ post.venue }}
-    <br>
-    {% if post.award %}<span style="color:#AA4A44">{{post.award}}</span><br>{% endif %}
-    <!--Paper link + Source code + Blog post + Slide + Talk-->
-    {% if post.paper %}[<a href="{{post.paper}}">paper</a>]{% endif %}
-    {% if post.code %}[<a href="{{post.code}}">code</a>]{% endif %}
-    {% if post.blog %}[<a href="{{post.blog}}">blog</a>]{% endif %}
-    {% if post.slide %}[<a href="{{post.slide}}">slide</a>]{% endif %}
-    {% if post.talk %}[<a href="{{post.talk}}">talk</a>]{% endif %}
+    {% if post.collection == 'posts' %}
+      <!--Blog post title (clickable)-->
+      <h2 class="archive__item-title" itemprop="headline">
+        <a href="{{ post.url | prepend: base_path }}" rel="permalink">{{ title }}</a>
+      </h2>
+      <p class="archive__item-excerpt" itemprop="description">
+        <small><i>{{ post.date | date: "%B %d, %Y" }}</i></small>
+      </p>
+      {% if post.excerpt %}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{% endif %}
+    {% else %}
+      <!--Paper title-->
+      <b>{{title}}</b>
+      <br>
+      <i>{{ post.authors }} </i>
+      <br>
+      {{ post.venue }}
+      <br>
+      {% if post.award %}<span style="color:#AA4A44">{{post.award}}</span><br>{% endif %}
+      <!--Paper link + Source code + Blog post + Slide + Talk-->
+      {% if post.paper %}[<a href="{{post.paper}}">paper</a>]{% endif %}
+      {% if post.code %}[<a href="{{post.code}}">code</a>]{% endif %}
+      {% if post.blog %}[<a href="{{post.blog}}">blog</a>]{% endif %}
+      {% if post.slide %}[<a href="{{post.slide}}">slide</a>]{% endif %}
+      {% if post.talk %}[<a href="{{post.talk}}">talk</a>]{% endif %}
+    {% endif %}
 
   </article>
 </div>
