@@ -80,7 +80,7 @@ To summarize:
 - If $p^\*$ is multi-modal and $p$ only fits one mode → **diversity error**
 - If $p$ generates data outside any mode of $p^\*$ → **fluency error**
 
-Fluency error is the type of error associated with "hallucinations"[^hallucinations]. Diversity error will be assocated with "mode collapse"[^modecollapse]. Of course, this is a theoretical framework, and one never actually has access to the god-like $p^\*$. These images are also a drastic oversimplication because LLM parameterize extremely high dimensional, multi-modal distributions that likely escape human intuition.
+Fluency error is the type of error associated with "hallucinations"[^hallucinations]. Diversity error will be associated with "mode collapse"[^modecollapse]. Of course, this is a theoretical framework, and one never actually has access to the god-like $p^\*$. These images are also a drastic oversimplication because LLM parameterize extremely high dimensional, multi-modal distributions that likely escape human intuition.
 
 ---
 
@@ -183,7 +183,7 @@ I learned this working on Adaptive Parallel Decoding (APD)[^apd]. APD defines a 
 <img src="/images/apd_results.png" alt="APD Results" style="max-width: 650px; display: block; margin: 0 auto;">
 *APD can dramatically increase speed with some expense to fluency and diversity.*
 
-I also introduced a parameter $R$ that controls the tradeoff. As you can see from this plot, compared to before just modifying the number of denoising steps like before, we are able to achieve a much better tradeoff. This method can improve speed by a factor of almost **10x** without a significant drop in quality. It's hard to imagine that this is free, and indeed, I think the price paid is in diversity. A multiplicative mixture between distributions inherently reduces diversity (entropy).
+I also introduced a parameter $R$ that controls the tradeoff. As you can see from this plot, compared to before just modifying the number of denoising steps like before, we are able to achieve a much better tradeoff. This method can improve speed by a factor of almost **10x** without a significant drop in quality. It's hard to imagine that this is free, and indeed, I think the price paid is in diversity. A multiplicative mixture between distributions inherently reduces diversity (or entropy if you prefer).
 
 <img src="/images/poe.png" alt="Product of Experts" style="max-width: 500px; display: block; margin: 0 auto;">
 *A product-of-experts[^poe] decreases diversity*
@@ -205,7 +205,7 @@ Instead of just adding compute to the inputs of the model, it is possible to als
 <img src="/images/planned_diffusion.png" alt="Planned Diffusion" style="max-width: 700px; display: block; margin: 0 auto;">
 *Planned Diffusion: first generate a plan autoregressively, then fill in spans in parallel with diffusion.*
 
-If you believe as I do that there is no free lunch with respect to speed, fluency, and diversity, adding more data seems like the best solution. After all, just adding more data until the problem was fixed is how we got LLMs in the first place [^scaling].
+This type of approach is trying to improve what we call "semantic parallelism" [^pasta]. If you believe as I do that there is no free lunch with respect to speed, fluency, and diversity, adding more data seems like the best solution. After all, just adding more data until the problem was fixed is how we got LLMs in the first place [^scaling].
 
 ---
 
@@ -279,3 +279,5 @@ There are now benchmarks that analyze the tradeoff between speed and quality in 
 [^dcd]: Liu, Anji, et al. "Discrete copula diffusion." arXiv preprint (2024). [arXiv:2410.01949] (https://arxiv.org/abs/2410.01949)
 
 [^scaling]: Kaplan, Jared, et al. "Scaling laws for neural language models." arXiv preprint (2020). [arXiv:2001.08361] (https://arxiv.org/abs/2001.08361)
+
+[^pasta]: Jin, Tian, et al. "Learning to keep a promise: Scaling language model decoding parallelism with learned asynchronous decoding." arXiv preprint (2025). [arXiv:2502.11517] (arXiv:2502.11517 )
