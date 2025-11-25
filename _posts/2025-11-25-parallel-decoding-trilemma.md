@@ -292,8 +292,8 @@ There are now benchmarks that analyze the tradeoff between speed and quality in 
 
 [^rnd1]: Chandrasegaran, Keshigeyan, Armin W. Thomas, et al. "RND1: Simple, Scalable AR-to-Diffusion Conversion." *Radical Numerics*, 2025. [radicalnumerics.ai](https://www.radicalnumerics.ai/blog/rnd1)
 
-[^dcd]: Liu, Anji, et al. "Discrete copula diffusion." arXiv preprint (2024). [arXiv:2410.01949] (https://arxiv.org/abs/2410.01949)
+[^dcd]: Liu, Anji, et al. "Discrete copula diffusion." *arXiv preprint*, 2024. [arXiv:2410.01949](https://arxiv.org/abs/2410.01949)
 
-[^scaling]: Kaplan, Jared, et al. "Scaling laws for neural language models." arXiv preprint (2020). [arXiv:2001.08361] (https://arxiv.org/abs/2001.08361)
+[^scaling]: Kaplan, Jared, et al. "Scaling laws for neural language models." *arXiv preprint*, 2020. [arXiv:2001.08361](https://arxiv.org/abs/2001.08361)
 
-[^pasta]: Jin, Tian, et al. "Learning to keep a promise: Scaling language model decoding parallelism with learned asynchronous decoding." arXiv preprint (2025). [arXiv:2502.11517] (arXiv:2502.11517 )
+[^pasta]: Jin, Tian, et al. "Learning to Keep a Promise: Scaling Language Model Decoding Parallelism with Learned Asynchronous Decoding." *arXiv preprint*, 2025. [arXiv:2502.11517](https://arxiv.org/abs/2502.11517)
