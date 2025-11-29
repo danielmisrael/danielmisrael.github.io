@@ -129,7 +129,7 @@ $$
 Given this noise process, dLLMs are trained to maximize a lower bound on the log-likelihood:
 
 $$
-\log p_\theta(x^0) \geq \mathbb{E}_{t\sim U(0,1),\, x^t \sim q(x^t \mid x^0)} \left[ \log p_{\text{D}} \left(x_{\mathbb{1}(x^t = \text{[MASK]})} \mid x_{\mathbb{1}(x^t \neq \text{[MASK]})}; \theta\right)\right]
+\log p_\theta(x^0) \geq \mathbb{E}_{t\sim U(0,1),\, x^t \sim q(x^t \mid x^0)} \left[ \frac{1}{t} \log p_{\text{D}} \left(x_{\mathbb{1}(x^t = \text{[MASK]})} \mid x_{\mathbb{1}(x^t \neq \text{[MASK]})}; \theta\right)\right]
 $$
 
 This objective corresponds to sampling a masking ratio randomly, and making predictions at the locations of the masked tokens. I won't derive this bound here, but the key insight is that this objective is *exactly equivalent* to training an **Any-Order Autoregressive Model**[^aoar], a model that learns an autoregressive joint distribution given random permutations of the data. 
