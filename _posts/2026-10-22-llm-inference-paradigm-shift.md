@@ -10,10 +10,6 @@ tags:
 
 **TL;DR:** *LLM inference is undergoing a paradigm shift from batch parallelism to sequence parallelism.*
 
-<aside class="notice" aria-label="Author's Note" markdown="1">
-**Author's Note:** I do not have insider knowledge of industry inference stacks. My opinions may be completely wrong or patently obvious.
-</aside>
-
 ---
 
 In *The Structure of Scientific Revolutions*, Thomas Kuhn argued that science does not advance via a mere accumulation of discoveries.[^kuhn] Researchers work within a shared set of assumptions about what the important problems are and how to solve them: a paradigm. I believe we are in **a paradigm shift in LLM inference**. We are moving from **batch parallel decoding to sequence parallel decoding**.
@@ -176,6 +172,10 @@ Figure 11. Throughput–interactivity curves digitized from Figure 12(a) of the 
 However, critiques will argue that diffusion has yet to match autoregression in quality. In addition to improving output quality, I would also like to see a diffusion model designed that outright dominates autoregressive models and speculative decoding at even the highest concurrency settings. This has not been achieved yet, and there is still a lot of room for exploration.
 
 What will emerge in a sequence-parallel decoding paradigm?
+
+<aside class="notice" aria-label="Author's Note" markdown="1">
+**Author's Note:** I do not have insider knowledge of industry inference stacks. My opinions may be completely wrong or patently obvious.
+</aside>
 
 ## References
 
