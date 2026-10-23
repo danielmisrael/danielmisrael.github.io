@@ -10,6 +10,10 @@ tags:
 
 **TL;DR:** *LLM inference is undergoing a paradigm shift from batch parallelism to sequence parallelism.*
 
+<aside class="notice" aria-label="Author's Note" markdown="1">
+**Author's Note:** I do not have insider knowledge of industry inference stacks. My opinions may be completely wrong or patently obvious.
+</aside>
+
 ---
 
 In *The Structure of Scientific Revolutions*, Thomas Kuhn argued that science does not advance via a mere accumulation of discoveries.[^kuhn] Researchers work within a shared set of assumptions about what the important problems are and how to solve them: a paradigm. I believe we are in **a paradigm shift in LLM inference**. We are moving from **batch parallel decoding to sequence parallel decoding**.
@@ -37,11 +41,11 @@ Kuhn's account of scientific progress can be organized into five phases.[^kuhn-p
 
 LLM serving inherited infrastructure built for general-purpose deep learning. Production systems such as TensorFlow Serving[^tensorflow-serving] and NVIDIA Triton Inference Server[^triton] handled model deployment, request batching, and efficient execution across machine-learning frameworks. Batching requests in this time was already common practice. However, the advent of autoregressive LLM inference posed new challenges. One request requires repeated model executions, retains a growing state (the KV cache), and finishes after a variable number of tokens.
 
-Pope and colleagues[^pope] found that weight loading dominates the cost of PaLM generation at small batches, while computation dominates at large batches. This helps explain why small-batch autoregressive decoding is often **memory-bandwidth-bound**. To see the arithmetic, consider one user generating one token with BF16 weights. BF16 is a 16-bit format, so each weight occupies two bytes.[^bf16] In a dense linear layer, each weight contributes a multiplication and an addition, or two FLOPs.[^matmul] Ignoring activation traffic, that is roughly one FLOP per byte of weights read from HBM: very little computation for the amount of data moved.
+It became clear that autoregressive decoding could be **memory-bandwidth-bound**. Each step reads model weights and the KV cache to generate only one new token per request. Pope and colleagues[^pope] explain how this bottleneck changes depending on the workload. At small batches and short contexts, loading weights dominates memory traffic. Batching spreads the weight-loading cost across more requests, but each request still has its own KV cache to read. As batches and contexts grow, those cache reads can become the dominant memory cost.
 
 ## Normal science
 
-The solution to the above problem was **batch parallelism**. In this blog, I will examine the following paradigmatic assumption: **batch parallelism is the best way to maximize throughput in an LLM serving system**. Under Kuhn’s framework, what then proceeds in this paradigm is normal science. Several natural questions start to emerge: How do we keep the batch full? How do we fit more requests in memory? How do we keep other work from delaying decoding?
+The response to the weight-loading bottleneck was **batch parallelism**. In this blog, I will examine the following paradigmatic assumption: **batch parallelism is the best way to maximize throughput in an LLM serving system**. Under Kuhn’s framework, what then proceeds in this paradigm is normal science. Several natural questions start to emerge: How do we keep the batch full? How do we fit more requests in memory? How do we keep other work from delaying decoding?
 
 Batching amortizes weight reads across tokens from independent requests. A batch of B sequences allows a dense linear layer to perform roughly B times as much computation per weight load, turning matrix–vector computation into denser matrix–matrix computation. This raises arithmetic intensity and accelerator utilization. In the context of LLM serving, the systems problem is about maintaining a sufficiently large active batch despite having variable request lengths and memory occupied the KV cache of each request.
 
@@ -77,7 +81,7 @@ Figure 3. Short context and long context produce opposite batch-size trends. Mea
   </figcaption>
 </figure>
 
-The reason these results are possible is because batch parallel decoding grows the KV cache in the number of users, and the KV cache can eventually become the bottleneck on throughput. Sequence parallel decoding makes it possible to increase throughput without adding more KV pressure via more users. Put another way, speculative decoding can increase high-concurrency throughput by amortizing the KV cache footprint across multiple accepted tokens per step.
+These results are not immediately intuitive. It should be easier to parallelize over **independent** users compared to highly interdependent tokens within a sequence. The reason these results are possible is because batch parallel decoding grows the KV cache in the number of users, and the KV cache can eventually become the bottleneck on throughput. Sequence parallel decoding makes it possible to increase throughput without adding more KV pressure. Put another way, speculative decoding can increase high-concurrency throughput by amortizing the KV cache footprint across multiple accepted tokens per step.
 
 Figure 4 compares the number of tokens MagicDec generates per verification with the number needed to match autoregressive decoding. As context grows, the tokens per verification cycle stays roughly constant at 2.5, while the acceptance rate needed to beat pure autoregression falls. For this particular model, the interpolated crossover point where sequence parallelism achieves better throughput is just over 16K context length.
 
@@ -152,7 +156,7 @@ Figure 10. Left: arrows connect each of the 129 matched pairs from speculation o
 
 Thus, even for large models there is substantial evidence that sequence parallelism can improve throughput over batch parallelism alone. As diffusion drafters gain popularity and improve over time, I anticipate eventually that the highest throughput configuration at any level of interactivity will include some form sequence parallelism through speculative decoding.
 
-Another work worth mentioning is DSpark[^dspark]. DSpark obtains even more improvement by using a special decoding head to improve causal consistency of diffusion drafts. Slight tangent, but I must shout out my labmates for exploring this idea earlier in *Breaking the Factorization Barrier in Diffusion Language Models*.[^codd] Anyway, DeepSeek deploys speculative diffusion in its V4 serving system[^dspark], replacing its previous single-token MTP setup. Under live user traffic, it improved the measured throughput–interactivity frontier.
+Another work worth mentioning is DSpark[^dspark]. DSpark obtains even more improvement by using a special decoding head to improve causal consistency of diffusion drafts. Slight tangent, but I must shout out my labmates for exploring this idea before DSpark in *Breaking the Factorization Barrier in Diffusion Language Models*.[^codd] Anyway, DeepSeek deploys speculative diffusion in its V4 serving system[^dspark], replacing its previous single-token MTP setup. Under live user traffic, it improved the measured throughput–interactivity frontier.
 
 ## Post-revolution
 
@@ -183,11 +187,7 @@ What will emerge in a sequence-parallel decoding paradigm?
 
 [^triton]: Goodwin, David. “NVIDIA Triton Inference Server Boosts Deep Learning Inference.” NVIDIA Technical Blog, September 12, 2018. [Blog post](https://developer.nvidia.com/blog/nvidia-serves-deep-learning-inference/); [dynamic batching documentation](https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/user_guide/batcher.html).
 
-[^pope]: Pope, Reiner, et al. “Efficiently Scaling Transformer Inference.” arXiv preprint, 2022. [arXiv:2211.05102](https://arxiv.org/abs/2211.05102); [PaLM generation results, §4.4](https://arxiv.org/html/2211.05102v1).
-
-[^bf16]: Wang, Shibo, and Pankaj Kanwar. “BFloat16: The secret to high performance on Cloud TPUs.” Google Cloud Blog, August 23, 2019. [BF16 format description](https://cloud.google.com/blog/products/ai-machine-learning/bfloat16-the-secret-to-high-performance-on-cloud-tpus).
-
-[^matmul]: NVIDIA. “Matrix Multiplication Background User’s Guide,” §2, “Math and Memory Bounds.” [Documentation](https://docs.nvidia.com/deeplearning/performance/dl-performance-matrix-multiplication/).
+[^pope]: Pope, Reiner, et al. “Efficiently Scaling Transformer Inference.” arXiv preprint, 2022. [arXiv:2211.05102](https://arxiv.org/abs/2211.05102); [memory costs and KV-cache analysis, §§2, 3.3, and 4.2](https://arxiv.org/html/2211.05102v1).
 
 [^orca]: Yu, Gyeong-In, et al. “Orca: A Distributed Serving System for Transformer-Based Generative Models.” OSDI, 2022. [Paper](https://www.usenix.org/conference/osdi22/presentation/yu).
 
