@@ -77,7 +77,7 @@ Figure 3. Short context and long context produce opposite batch-size trends. Mea
   </figcaption>
 </figure>
 
-These results are not immediately intuitive. It should be easier to parallelize over **independent** users compared to highly interdependent tokens within a sequence. The reason these results are possible is because batch parallel decoding grows the KV cache in the number of users, and the KV cache can eventually become the bottleneck on throughput. Sequence parallel decoding makes it possible to increase throughput without adding more KV pressure. Put another way, speculative decoding can increase high-concurrency throughput by amortizing the KV cache footprint across multiple accepted tokens per step.
+These results are not immediately intuitive. It should be easier to parallelize over **independent** users compared to highly interdependent tokens within a sequence. The reason these results are possible is because batch parallel decoding grows the KV cache in the number of users, and the KV cache can eventually become the bottleneck on throughput. Sequence parallel decoding makes it possible to increase throughput without adding more KV pressure. Essentially, speculative decoding can amortize the KV cache footprint across multiple accepted tokens per step. Another way to interpret this is that speculative decoding can increase arithmetic intensity in memory bound workloads with large KV caches.
 
 Figure 4 compares the number of tokens MagicDec generates per verification with the number needed to match autoregressive decoding. As context grows, the tokens per verification cycle stays roughly constant at 2.5, while the acceptance rate needed to beat pure autoregression falls. For this particular model, the interpolated crossover point where sequence parallelism achieves better throughput is just over 16K context length.
 
@@ -169,7 +169,7 @@ Figure 11. Throughput–interactivity curves digitized from Figure 12(a) of the 
   </figcaption>
 </figure>
 
-However, critiques will argue that diffusion has yet to match autoregression in quality. In addition to improving output quality, I would also like to see a diffusion model designed that outright dominates autoregressive models and speculative decoding at even the highest concurrency settings. This has not been achieved yet, and there is still a lot of room for exploration.
+However, critics will argue that diffusion has yet to match autoregression in quality. In addition to improving output quality, I would also like to see a diffusion model designed that outright dominates autoregressive models and speculative decoding at even the highest concurrency settings. This has not been achieved yet, and there is still a lot of room for exploration.
 
 What will emerge in a sequence-parallel decoding paradigm?
 
