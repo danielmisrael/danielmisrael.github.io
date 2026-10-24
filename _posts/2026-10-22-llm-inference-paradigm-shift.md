@@ -106,7 +106,7 @@ Figure 6. Throughput relative to AR without speculation, for Llama-3.1-8B on MT-
   </figcaption>
 </figure>
 
-While speculative decoding was producing these anomolies, an independent line of research was developing another way to parallelize over the sequence. A key advance was Austin and colleagues' work on discrete diffusion in 2021[^d3pm], which extended diffusion to discrete data. A model learns to reverse a noise corruption process, allowing it to generate text by updating multiple positions in parallel over successive denoising steps. MDLM in 2024[^mdlm] further narrowed the gap with autoregression, and LLaDA in 2025[^llada] scaled the approach to an 8B model with instruction-following capabilities. Thus, sequence parallel inference was of growing interest to the research community.
+While speculative decoding was producing these anomalies, an independent line of research was developing another way to parallelize over the sequence. A key advance was Austin and colleagues' work on discrete diffusion in 2021[^d3pm], which extended diffusion to discrete data. A model learns to reverse a noise corruption process, allowing it to generate text by updating multiple positions in parallel over successive denoising steps. MDLM in 2024[^mdlm] further narrowed the gap with autoregression, and LLaDA in 2025[^llada] scaled the approach to an 8B model with instruction-following capabilities. Thus, sequence parallel inference was of growing interest to the research community.
 
 <figure>
   <img src="/images/llm-inference-paradigm-shift/figure-07.png" alt="Figure 7 — Cumulative citations to D3PM, SEDD, MDLM, and LLaDA on shared axes">
