@@ -177,6 +177,24 @@ What will emerge in a sequence-parallel decoding paradigm?
 **Author's Note:** I do not have insider knowledge of industry inference stacks. My opinions may be completely wrong or patently obvious.
 </aside>
 
+---
+
+## Cite This Post
+
+<div style="position: relative;">
+<button type="button" aria-label="Copy BibTeX citation" onclick="navigator.clipboard.writeText(document.getElementById('bibtex').innerText).then(() => { this.innerText='Copied!'; setTimeout(() => this.innerText='Copy', 2000); }).catch(() => { this.innerText='Select text to copy'; setTimeout(() => this.innerText='Copy', 3000); });" style="position: absolute; top: 8px; right: 8px; padding: 4px 12px; background: #4a4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Copy</button>
+<pre id="bibtex" style="background: #2d2d2d; color: #f8f8f2; padding: 44px 20px 20px; border-radius: 8px; font-size: 15px; line-height: 1.5; overflow-x: auto;">@misc{israel2026revolutions,
+  title        = {The Structure of {LLM} Inference Revolutions},
+  author       = {Israel, Daniel},
+  year         = {2026},
+  month        = {October},
+  howpublished = {Blog post},
+  url          = {https://danielmisrael.github.io/posts/2026/10/llm-inference-paradigm-shift/}
+}</pre>
+</div>
+
+---
+
 ## References
 
 [^kuhn]: Kuhn, Thomas S. *The Structure of Scientific Revolutions*. 2nd ed., University of Chicago Press, 1970. [Bibliographic record](https://search.worldcat.org/title/The-structure-of-scientific-revolutions/oclc/93075).
