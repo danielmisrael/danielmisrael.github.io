@@ -39,7 +39,7 @@ In this blog, I'm going to focus on **diffusion large language models (dLLMs)** 
 
 ## Fluency and Diversity
 
-Now let's examine **fluency** and **diversity** together, as they are intrinsically linked.
+Now let's examine **fluency** and **diversity** together.
 
 - **Fluency** means the LLM generates "correct" things
 - **Diversity** means the LLM provides good coverage over *all* correct things
@@ -50,37 +50,34 @@ When evaluating LLMs, people usually prioritize fluency and neglect diversity. T
 
 Suppose there exists an ideal LLM distribution $p^\*$. This $p^\*$ is omniscient and god-like; its breadth of knowledge is immense, it can recall any fact, reason through any challenge, and can delight you in a multitude of ways even when given the exact same prompt repeatedly.
 
-We are training a model $p$, and we can decompose the error between $p$ and $p^\*$ using **Total Variation Distance (TVD)**:
+We are training a model $p$ to approximate $p^\*$. Assume that $p^\*$ assigns positive probability density to correct responses and zero to incorrect ones. I define **fluency error** as the probability that the model generates an incorrect response:
 
 $$
-\text{TVD}(p, p^*) = \mathcal{L}_{\text{fluency}}(p, p^*) + \mathcal{L}_{\text{diversity}}(p, p^*)
+L_{\mathrm{fluency}}(p,p^*)=\int_{\{x:p^*(x)=0\}}p(x)\,dx.
 $$
 
-where we define the error components by integrating over regions where one distribution assigns greater probability than another:
+I define **diversity error** as the ideal probability mass of responses that the model never generates:
 
 $$
-\mathcal{L}_{\text{fluency}}(p, p^*) = \int_{\{x \mid p(x) > p^*(x)\}} \bigl(p(x) - p^*(x)\bigr) \, dx
+L_{\mathrm{diversity}}(p,p^*)=\int_{\{x:p(x)=0\}}p^*(x)\,dx.
 $$
 
-$$
-\mathcal{L}_{\text{diversity}}(p, p^*) = \int_{\{x \mid p^*(x) > p(x)\}} \bigl(p^*(x) - p(x)\bigr) \, dx
-$$
-
-These definitions mirror those in the paper [*Assessing Generative Models via Precision and Recall*](https://arxiv.org/abs/1806.00035)[^precrecall]. In fact, when $p$ and $p^\*$ are Bernoulli distributions over binary outcomes, we recover the standard definitions of precision and recall. I rename these to *fluency* and *diversity* because they're more apt for our context (and easier to remember).
+These definitions follow the support-based special case in *Assessing Generative Models via Precision and Recall*[^precrecall]. I call the corresponding errors *fluency* and *diversity* because they're more apt for our context (and easier to remember).
 
 ### Visualizing the Errors
 
-This figure should make the concepts of diversity error and fluency error much more clear:
+The horizontal axis below represents a simplified space of responses. Every curve has total area one, and the shaded areas are exactly the errors defined above.
 
-<img src="/images/combined_diversity_fluency.png" alt="Fluency vs Diversity Error" style="max-width: 700px; display: block; margin: 20px auto;">
-*Three scenarios: balanced error (left), diversity error dominates when the model misses modes (center), and fluency error dominates when the model generates outside valid regions (right).*
+![Fluency and diversity errors illustrated with continuous distributions](/images/trilemma-fluency-diversity.png)
+
+*Top: the model misses one valid mode, giving diversity error 0.5 and fluency error 0. Bottom: the model covers both valid modes but adds an invalid one, giving fluency error 0.5 and diversity error 0.*
 
 To summarize:
 
 - If $p^\*$ is multi-modal and $p$ only fits one mode → **diversity error**
-- If $p$ generates data outside any mode of $p^\*$ → **fluency error**
+- If $p$ generates incorrect responses → **fluency error**
 
-Fluency error is the type of error associated with "hallucinations"[^hallucinations]. Diversity error will be associated with "mode collapse"[^modecollapse]. Of course, this is a theoretical framework, and one never actually has access to the god-like $p^\*$. These images are also a drastic oversimplication because LLM parameterize extremely high dimensional, multi-modal distributions that likely escape human intuition.
+Fluency error is the type of error associated with "hallucinations"[^hallucinations]. Diversity error will be associated with "mode collapse"[^modecollapse]. Of course, this is a theoretical framework, and one never actually has access to the god-like $p^\*$. These images are also a drastic oversimplification because LLMs parameterize extremely high dimensional, multi-modal distributions that likely escape human intuition.
 
 ---
 
@@ -230,6 +227,8 @@ There are now benchmarks that analyze the tradeoff between speed and quality in 
 
 ---
 
+<p id="correction-note" style="font-size: 0.85em; color: #666;"><strong>Correction — October 31, 2026:</strong> Revised the fluency and diversity definitions and figure, and clarified the precision–recall attribution. The earlier version incorrectly described these errors as an additive decomposition of total variation distance.</p>
+
 ## Cite This Post
 
 <div style="position: relative;">
@@ -280,7 +279,7 @@ There are now benchmarks that analyze the tradeoff between speed and quality in 
 
 [^aoar]: Shih, Andy, Dorsa Sadigh, and Stefano Ermon. "Training and Inference on Any-Order Autoregressive Models the Right Way." *NeurIPS*, 2022. [arXiv:2205.13554](https://arxiv.org/abs/2205.13554)
 
-[^precrecall]: Sajjadi, Mehdi SM, et al. "Assessing Generative Models via Precision and Recall." *NeurIPS*, 2018. [arXiv:1806.00035](https://arxiv.org/abs/1806.00035)
+[^precrecall]: Sajjadi, Mehdi SM, et al. "Assessing Generative Models via Precision and Recall." *NeurIPS*, 2018. [arXiv:1806.00035](https://arxiv.org/abs/1806.00035) See §3.1, Eq. (1). When the distributions agree up to scaling on their shared support, these losses equal one minus the jointly attainable maximum precision and recall. Both illustrated examples satisfy this condition. The general definition is broader. The integrals here are the continuous counterpart of the paper’s finite-state construction.
 
 [^modecollapse]: Thanh-Tung, Hoang, and Truyen Tran. "Catastrophic Forgetting and Mode Collapse in GANs." *IJCNN*, 2020. [arXiv:1807.04015](https://arxiv.org/abs/1807.04015)
 
